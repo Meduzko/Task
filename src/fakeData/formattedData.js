@@ -2,7 +2,7 @@ import projects from './project.json';
 import users from './user.json';
 import devices from './device.json';
 
-export const formatedData = () => {
+export const formattedData = () => {
   const data = projects.reduce((acc, curr, i) => {
     let projectDevices = devices.filter(el => el.projectId === curr.id);
     let projectUsers = users.filter(el => el.projectId === curr.id);

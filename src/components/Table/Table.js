@@ -13,7 +13,7 @@ import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { formatedData } from '../../fakeData/formattedData';
+import { formattedData } from '../../fakeData/formattedData';
 import { CustomTableCell } from '../CustomTableCell/CustomTableCell';
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const MyCustomDataTable = () => {
-  const [rows, setRows] = useState(formatedData());
+  const [rows, setRows] = useState(formattedData());
   const [previous, setPrevious] = useState({});
   const classes = useStyles();
 
