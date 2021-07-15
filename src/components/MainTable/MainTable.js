@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const MyCustomDataTable = () => {
+export const MainTable = () => {
   const [rows, setRows] = useState(formattedData());
   const [previous, setPrevious] = useState({});
   const classes = useStyles();

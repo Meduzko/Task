@@ -1,10 +1,10 @@
 import './App.css';
-import { MyCustomDataTable } from './components/Table/Table';
+import { MainTable } from './components/MainTable/MainTable';
 
 function App() {
   return (
     <div className="App">
-      <MyCustomDataTable />
+      <MainTable />
     </div>
   );
 }
