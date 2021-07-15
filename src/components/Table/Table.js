@@ -54,15 +54,18 @@ export const MyCustomDataTable = () => {
     if (!previous[row.id]) {
       setPrevious(state => ({ ...state, [row.id]: row }));
     }
+
     const value = e.target.value;
     const name = e.target.name;
     const { id } = row;
+
     const newRows = rows.map(row => {
       if (row.id === id) {
         return { ...row, [name]: value };
       }
       return row;
     });
+
     setRows(newRows);
   };
 
@@ -73,17 +76,17 @@ export const MyCustomDataTable = () => {
       }
       return row;
     });
+
     setRows(newRows);
     setPrevious(state => {
       delete state[id];
       return state;
     });
+
     onToggleEditMode(id);
   };
 
-  const onDelete = id => {
-    setRows(rows.filter(el => el.id !== id));
-  }
+  const onDelete = id => setRows(rows.filter(el => el.id !== id));
 
   return (
     <Paper className={classes.root}>
