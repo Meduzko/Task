@@ -39,15 +39,16 @@ export const MainTable = () => {
   const [previous, setPrevious] = useState({});
   const classes = useStyles();
 
-  const onToggleEditMode = id => {
-    setRows(state => {
-      return rows.map(row => {
-        if (row.id === id) {
-          return { ...row, isEditMode: !row.isEditMode };
-        }
-        return row;
-      });
-    });
+  const onToggleEditMode = row => {
+    const withToggledEdit = {
+      ...rows,
+      ...[{
+        ...row, 
+        isEditMode: !row.isEditMode 
+      }]
+    }
+
+    setRows(Object.values(withToggledEdit));
   };
 
   const onChange = (e, row) => {
@@ -57,33 +58,35 @@ export const MainTable = () => {
 
     const value = e.target.value;
     const name = e.target.name;
-    const { id } = row;
 
-    const newRows = rows.map(row => {
-      if (row.id === id) {
-        return { ...row, [name]: value };
-      }
-      return row;
-    });
+    const editedVal = {
+      ...rows,
+      ...[{
+        ...row, 
+        [name]: value 
+      }]
+    }
 
-    setRows(newRows);
+    setRows(Object.values(editedVal));
   };
 
-  const onRevert = id => {
-    const newRows = rows.map(row => {
-      if (row.id === id) {
-        return previous[id] ? previous[id] : row;
-      }
-      return row;
-    });
+  const onRevert = row => {
+    let prevState = previous[row.id] ? previous[row.id] : row;
 
-    setRows(newRows);
+    const newRows = {
+      ...rows,
+      ...[{
+        ...row, 
+        ...prevState 
+      }]
+    }
+
+    setRows(Object.values(newRows));
     setPrevious(state => {
-      delete state[id];
+      delete state[row.id];
       return state;
     });
 
-    onToggleEditMode(id);
   };
 
   const onDelete = id => setRows(rows.filter(el => el.id !== id));
@@ -115,13 +118,13 @@ export const MainTable = () => {
                   <>
                     <IconButton
                       aria-label="done"
-                      onClick={() => onToggleEditMode(row.id)}
+                      onClick={() => onToggleEditMode(row)}
                     >
                       <DoneIcon />
                     </IconButton>
                     <IconButton
                       aria-label="revert"
-                      onClick={() => onRevert(row.id)}
+                      onClick={() => onRevert(row)}
                     >
                       <RevertIcon />
                     </IconButton>
@@ -129,7 +132,7 @@ export const MainTable = () => {
                 ) : (
                   <IconButton
                     aria-label="delete"
-                    onClick={() => onToggleEditMode(row.id)}
+                    onClick={() => onToggleEditMode(row)}
                   >
                     <EditIcon />
                   </IconButton>
